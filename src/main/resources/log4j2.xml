@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration status="OFF">
+    <!-- output -->
+    <appenders>
+        <!-- Console Output -->
+        <Console name="Console" target="SYSTEM_OUT">
+            <PatternLayout pattern="%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n"/>
+        </Console>
+        <!-- File output: filename is the file to be written, filePattern indicates the filename and path of the old file when the size of the written file reaches the set size -->
+        <RollingRandomAccessFile name="DevLog"
+                                 fileName="./logs/info.log" filePattern="D:/logs/$${date:yyyy-MM}/app-%d{yyyy-MM-dd-HH}-%i.log.gz">
+            <!-- log output format -->
+            <PatternLayout charset="UTF-8" Pattern="%d %p %c [%t] %m%n" />
+            <Policies>
+                <TimeBasedTriggeringPolicy interval="24" modulate="true"/>
+                <SizeBasedTriggeringPolicy size="1 MB"/>
+            </Policies>
+        </RollingRandomAccessFile>
+    </appenders>
+    <loggers>
+        <!-- The level of log output is to output logs of debug and above levels -->
+        <root level="debug">
+            <appender-ref ref="DevLog"/>
+        </root>
+    </loggers>
+</configuration>
